@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  io.github.jianjianghui.autolog.springboot.autoconfigura.AutoLogAutoConfiguration

@@ -1,0 +1,31 @@
+logging:
+  level:
+    io.github.jianjianghui.autolog: info
+spring:
+  mvc:
+    servlet:
+      load-on-startup: 1
+jjh:
+  web:
+    auto:
+      log:
+        log-start-head: "【请求开始】"
+        log-end-head: "【请求结束】"
+        log-start-args: "[请求参数]:"
+        log-end-args: "[响应参数]:"
+        title-separator: " "
+        log-multiple-parameter-separator: ", "
+        log-multi-parameter-template: "{}:{}"
+        log-topic-template: "[{}]"
+        log-operation-template: "[{}]"
+        response-tag:
+          msg-tag: message
+          code-tag: code
+          data-tag: data
+        custom-log:
+          enable-ip: true
+          enable-unique-code: true
+          ip-tag: ip>
+          unique-code-tag: unique>
+
+
