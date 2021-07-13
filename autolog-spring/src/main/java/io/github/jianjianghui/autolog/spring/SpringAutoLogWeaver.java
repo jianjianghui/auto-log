@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
 
 import java.lang.reflect.Method;
 
@@ -60,7 +61,17 @@ public class SpringAutoLogWeaver extends AbstractAutoLogWeaver {
     public void handleEnd(JoinPoint joinPoint, Object result) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        this.handleEnd(method, result);
+        this.handleEnd(method, leachResult(result));
+    }
+
+
+    @SuppressWarnings("all")
+    private Object leachResult(Object result) {
+        if(result instanceof HttpEntity) {
+            return ((HttpEntity)result).getBody();
+        }
+
+        return result;
     }
 
 
