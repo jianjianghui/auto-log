@@ -1,5 +1,8 @@
 package io.github.jianjianghui.autolog.spring.custom.util;
 
+import cn.hutool.core.util.StrUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -16,6 +19,10 @@ import java.util.Objects;
  * @date 2021/7/10 - 13:40
  */
 public class HttpRequest {
+    private final static Logger log = LoggerFactory.getLogger(HttpRequest.class);
+    private final static String UNKNOWN = "unknown";
+    private final static int MAX_LENGTH = 15;
+
     private final HttpServletRequest request;
 
 
@@ -29,21 +36,32 @@ public class HttpRequest {
             return "";
         }
 
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
+        String ip = null;
+        try {
+            ip = request.getHeader("x-forwarded-for");
+            if (StrUtil.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+                ip = request.getHeader("Proxy-Client-IP");
+            }
+            if (StrUtil.isEmpty(ip) || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
+                ip = request.getHeader("WL-Proxy-Client-IP");
+            }
+            if (StrUtil.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+                ip = request.getHeader("HTTP_CLIENT_IP");
+            }
+            if (StrUtil.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+                ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+            }
+            if (StrUtil.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+                ip = request.getRemoteAddr();
+            }
+        } catch (Exception e) {
+            log.error("IPUtils ERROR ", e);
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
+        // 使用代理，则获取第一个IP地址
+        if (!StrUtil.isEmpty(ip) && ip.length() > MAX_LENGTH) {
+            if (ip.indexOf(StrUtil.COMMA) > 0) {
+                ip = ip.substring(0, ip.indexOf(StrUtil.COMMA));
+            }
         }
         return ip;
     }
