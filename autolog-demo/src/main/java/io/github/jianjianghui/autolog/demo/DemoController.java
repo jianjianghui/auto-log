@@ -28,5 +28,9 @@ public class DemoController {
         return Rest.success("请求成功", "菅江晖");
     }
 
+    @GetMapping
+    public Response<String> index(String lat, String lon) {
+        return Rest.error();
+    }
 
 }
