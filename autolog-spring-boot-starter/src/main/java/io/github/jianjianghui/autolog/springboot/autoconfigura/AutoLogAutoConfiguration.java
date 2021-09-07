@@ -54,7 +54,7 @@ public class AutoLogAutoConfiguration {
 
     private LogProperties convertLogProperties(SpringLogProperties springLogProperties) {
         if (Objects.isNull(springLogProperties)) {
-            springLogProperties = new SpringLogProperties();
+            return new LogProperties();
         }
 
         LogProperties properties = new LogProperties();

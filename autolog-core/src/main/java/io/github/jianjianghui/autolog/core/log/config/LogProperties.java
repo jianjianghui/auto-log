@@ -22,6 +22,27 @@ public class LogProperties {
      */
     public String logStartArgs = "[请求参数]:";
 
+
+    /**
+     * log结束头标题
+     */
+    public String logEndHead = "end   --->";
+    /**
+     * log响应参数标题
+     */
+    public String logEndArgs = "[响应参数]:";
+
+
+    /**
+     * log异常参数标题
+     */
+    public String logAbnormalHead = "exception --->";
+
+    /**
+     * log异常参数标题
+     */
+    public String logAbnormalArgs = "[异常信息]:";
+
     /**
      * log主题模板
      * {} -> 日志主题
@@ -33,14 +54,7 @@ public class LogProperties {
      * {} -> 日志操作内容
      */
     public String logOperationTemplate = "[{}]";
-    /**
-     * log结束头标题
-     */
-    public String logEndHead = "end   --->";
-    /**
-     * log响应参数标题
-     */
-    public String logEndArgs = "[响应参数]:";
+
     /**
      * log多参数模板 第一个 {} 参数名， 第二个{} 参数值
      */
@@ -54,6 +68,21 @@ public class LogProperties {
      */
     public ResponseTag responseTag = new ResponseTag();
 
+    public String getLogAbnormalHead() {
+        return logAbnormalHead;
+    }
+
+    public void setLogAbnormalHead(String logAbnormalHead) {
+        this.logAbnormalHead = logAbnormalHead;
+    }
+
+    public String getLogAbnormalArgs() {
+        return logAbnormalArgs;
+    }
+
+    public void setLogAbnormalArgs(String logAbnormalArgs) {
+        this.logAbnormalArgs = logAbnormalArgs;
+    }
 
     public String getTitleSeparator() {
         return titleSeparator;

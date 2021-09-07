@@ -14,16 +14,30 @@ import java.util.StringJoiner;
 public class CustomLogFactory {
     protected final CustomStartLogChain logStartChain;
     protected final CustomEndLogChain logEndChain;
+    protected final CustomAbnormalLogChain logAbnormalChain;
     protected final LogProperties logProperties;
 
     protected CustomLogFactory(LogProperties logProperties) {
+        this.logAbnormalChain = new CustomAbnormalLogChain(stringJoiner -> nothing());
         this.logStartChain = new CustomStartLogChain(stringJoiner -> nothing());
         this.logEndChain = new CustomEndLogChain(stringJoiner -> nothing());
         this.logProperties = logProperties;
     }
 
+    public static CustomLogFactory getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    public static CustomLogFactory create(LogProperties logProperties) {
+        return new CustomLogFactory(logProperties);
+    }
+
     public Chain<StringJoiner> getLogStartChain() {
         return logStartChain;
+    }
+
+    public CustomAbnormalLogChain getLogAbnormalChain() {
+        return logAbnormalChain;
     }
 
     public Chain<StringJoiner> getLogEndChain() {
@@ -33,17 +47,8 @@ public class CustomLogFactory {
     public void nothing() {
     }
 
-
     private static class Holder {
         private static final CustomLogFactory INSTANCE = new CustomLogFactory(new LogProperties());
-    }
-
-    public static CustomLogFactory getInstance() {
-        return Holder.INSTANCE;
-    }
-
-    public static CustomLogFactory create(LogProperties logProperties) {
-        return new CustomLogFactory(logProperties);
     }
 
 }

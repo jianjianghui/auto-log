@@ -3,7 +3,10 @@ package io.github.jianjianghui.autolog.demo;
 
 import io.github.jianjianghui.autolog.core.annotation.AutoLog;
 import io.github.jianjianghui.response.v1.Response;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -28,9 +31,12 @@ public class DemoController {
         return Rest.success("请求成功", "菅江晖");
     }
 
-    @GetMapping
-    public Response<String> index(String lat, String lon) {
-        return Rest.error();
+
+    @GetMapping("/error1")
+    @AutoLog("获取用户")
+    public Response<String> error() {
+        throw new RuntimeException("我错了");
     }
+
 
 }

@@ -11,8 +11,10 @@ jjh:
       log:
         log-start-head: "【请求开始】"
         log-end-head: "【请求结束】"
+        log-abnormal-head: "【抛出异常】"
         log-start-args: "[请求参数]:"
         log-end-args: "[响应参数]:"
+        log-abnormal-args: "[异常信息]:"
         title-separator: " "
         log-multiple-parameter-separator: ", "
         log-multi-parameter-template: "{}:{}"
@@ -27,5 +29,6 @@ jjh:
           enable-unique-code: true
           ip-tag: ip>
           unique-code-tag: unique>
+
 
 

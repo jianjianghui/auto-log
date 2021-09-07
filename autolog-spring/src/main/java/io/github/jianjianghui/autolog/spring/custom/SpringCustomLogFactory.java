@@ -24,20 +24,22 @@ public class SpringCustomLogFactory extends CustomLogFactory {
         this.properties = properties;
         Chain<StringJoiner> logStartChain = super.getLogStartChain();
         Chain<StringJoiner> logEndChain = super.getLogEndChain();
+        Chain<StringJoiner> logAbnormalChain = super.getLogAbnormalChain();
 
         if (properties.isEnableIp()) {
             logStartChain = addIp(logStartChain);
             logEndChain = addIp(logEndChain);
+            logAbnormalChain = addIp(logAbnormalChain);
         }
 
         if (properties.isEnableUniqueCode()) {
-            logStartChain = addUniqueCode(logStartChain);
-            logEndChain = addUniqueCode(logEndChain);
+            addUniqueCode(logStartChain);
+            addUniqueCode(logEndChain);
+            addUniqueCode(logAbnormalChain);
         }
     }
 
     private Chain<StringJoiner> addIp(Chain<StringJoiner> chain) {
-
         return chain.next(stringJoiner -> stringJoiner.add(CharSequenceUtil.format(logProperties.logOperationTemplate,
                 properties.getIpTag() + HttpRequest.currentRequest().ip())));
     }

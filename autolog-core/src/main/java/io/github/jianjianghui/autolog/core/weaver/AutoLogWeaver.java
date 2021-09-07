@@ -16,7 +16,7 @@ public interface AutoLogWeaver {
      * @param method method
      * @param args   参数
      */
-     void handleStart(Method method, Object[] args);
+    void handleStart(Method method, Object[] args);
 
     /**
      * 处理尾日志
@@ -24,5 +24,13 @@ public interface AutoLogWeaver {
      * @param method method
      * @param result 返回结果
      */
-     void handleEnd(Method method, Object result);
+    void handleEnd(Method method, Object result);
+
+    /**
+     * 处理异常日志
+     *
+     * @param method    method
+     * @param exception 异常
+     */
+    void handleException(Method method, Exception exception);
 }

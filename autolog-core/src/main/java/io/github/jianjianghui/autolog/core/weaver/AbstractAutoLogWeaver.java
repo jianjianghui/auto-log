@@ -2,6 +2,7 @@ package io.github.jianjianghui.autolog.core.weaver;
 
 import io.github.jianjianghui.autolog.core.AutoLogMatcher;
 import io.github.jianjianghui.autolog.core.log.LogBuilder;
+import io.github.jianjianghui.autolog.core.log.domain.LogAbnormal;
 import io.github.jianjianghui.autolog.core.log.domain.LogEnd;
 import io.github.jianjianghui.autolog.core.log.domain.LogStart;
 import org.slf4j.Logger;
@@ -42,5 +43,11 @@ public abstract class AbstractAutoLogWeaver implements AutoLogWeaver {
         });
     }
 
-
+    @Override
+    public void handleException(Method method, Exception exception) {
+        autoLogMatcher.match(method, () -> {
+            LogAbnormal logAbnormal = new LogAbnormal(method, exception);
+            log.info(logBuilder.buildAbnormalLog(logAbnormal));
+        });
+    }
 }

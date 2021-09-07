@@ -1,13 +1,10 @@
 package io.github.jianjianghui.autolog.spring;
 
 import io.github.jianjianghui.autolog.core.AutoLogMatcher;
-import io.github.jianjianghui.autolog.core.weaver.AbstractAutoLogWeaver;
 import io.github.jianjianghui.autolog.core.log.LogBuilder;
+import io.github.jianjianghui.autolog.core.weaver.AbstractAutoLogWeaver;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,11 +61,18 @@ public class SpringAutoLogWeaver extends AbstractAutoLogWeaver {
         this.handleEnd(method, leachResult(result));
     }
 
+    @AfterThrowing(value = "get1() || post() || put() || delete() || all()", throwing = "ex", argNames = "joinPoint,ex")
+    public void handleException(JoinPoint joinPoint, Exception ex) {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        this.handleException(method, ex);
+    }
+
 
     @SuppressWarnings("all")
     private Object leachResult(Object result) {
-        if(result instanceof HttpEntity) {
-            return ((HttpEntity)result).getBody();
+        if (result instanceof HttpEntity) {
+            return ((HttpEntity) result).getBody();
         }
 
         return result;

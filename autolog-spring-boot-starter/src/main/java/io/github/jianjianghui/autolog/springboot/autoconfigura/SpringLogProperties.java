@@ -26,6 +26,17 @@ public class SpringLogProperties {
     public String logStartArgs = "[params]:";
 
     /**
+     * log异常参数标题
+     */
+    public String logAbnormalHead = "exception --->";
+
+    /**
+     * log异常参数标题
+     */
+    public String logAbnormalArgs = "[异常信息]:";
+
+
+    /**
      * log主题模板
      * {} -> 日志主题
      */
@@ -86,6 +97,21 @@ public class SpringLogProperties {
         this.logMultipleParameterSeparator = logMultipleParameterSeparator;
     }
 
+    public String getLogAbnormalHead() {
+        return logAbnormalHead;
+    }
+
+    public void setLogAbnormalHead(String logAbnormalHead) {
+        this.logAbnormalHead = logAbnormalHead;
+    }
+
+    public String getLogAbnormalArgs() {
+        return logAbnormalArgs;
+    }
+
+    public void setLogAbnormalArgs(String logAbnormalArgs) {
+        this.logAbnormalArgs = logAbnormalArgs;
+    }
 
     public String getLogMultiParameterTemplate() {
         return logMultiParameterTemplate;
@@ -139,6 +165,10 @@ public class SpringLogProperties {
         return logStartHead;
     }
 
+    public void setLogStartHead(String logStartHead) {
+        this.logStartHead = logStartHead;
+    }
+
     public String getLogTopicTemplate() {
         return logTopicTemplate;
     }
@@ -146,11 +176,6 @@ public class SpringLogProperties {
     public void setLogTopicTemplate(String logTopicTemplate) {
         this.logTopicTemplate = logTopicTemplate;
     }
-
-    public void setLogStartHead(String logStartHead) {
-        this.logStartHead = logStartHead;
-    }
-
 
     public String getLogEndHead() {
         return logEndHead;
