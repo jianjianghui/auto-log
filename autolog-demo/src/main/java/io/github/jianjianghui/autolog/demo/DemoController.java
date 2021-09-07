@@ -32,7 +32,7 @@ public class DemoController {
     }
 
 
-    @GetMapping("/error1")
+    @GetMapping("/demo02")
     @AutoLog("获取用户")
     public Response<String> error() {
         throw new RuntimeException("我错了");
