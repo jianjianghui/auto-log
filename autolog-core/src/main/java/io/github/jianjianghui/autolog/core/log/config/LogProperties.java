@@ -43,6 +43,13 @@ public class LogProperties {
      */
     public String logAbnormalArgs = "[异常信息]:";
 
+
+    /**
+     * log异常参数内容  {class} {message}
+     */
+    public String logAbnormalContent = "from: {class} message: {message}";
+
+
     /**
      * log主题模板
      * {} -> 日志主题
@@ -82,6 +89,14 @@ public class LogProperties {
 
     public void setLogAbnormalArgs(String logAbnormalArgs) {
         this.logAbnormalArgs = logAbnormalArgs;
+    }
+
+    public String getLogAbnormalContent() {
+        return logAbnormalContent;
+    }
+
+    public void setLogAbnormalContent(String logAbnormalContent) {
+        this.logAbnormalContent = logAbnormalContent;
     }
 
     public String getTitleSeparator() {

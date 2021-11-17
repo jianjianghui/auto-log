@@ -101,7 +101,6 @@ public class LogBuilder {
 
     public String buildAbnormalLog(LogAbnormal logAbnormal) {
         Method method = logAbnormal.getMethod();
-        Exception exception = logAbnormal.getException();
         StringJoiner joiner = new StringJoiner(logProperties.titleSeparator);
 
 
@@ -111,8 +110,11 @@ public class LogBuilder {
         //custom
         logAbnormalChain.accept(joiner);
 
+        String content = logProperties.logAbnormalContent
+                .replace("{class}", logAbnormal.getException().getClass().toString())
+                .replace("{message}", logAbnormal.getException().getMessage());
 
-        joiner.add(logProperties.logAbnormalArgs).add(JSONUtil.toJSONString(exception.getMessage()));
+        joiner.add(logProperties.logAbnormalArgs).add(content);
 
         return joiner.toString();
     }
