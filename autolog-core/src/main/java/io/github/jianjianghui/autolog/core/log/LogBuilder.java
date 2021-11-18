@@ -112,7 +112,7 @@ public class LogBuilder {
 
         String content = logProperties.logAbnormalContent
                 .replace("{class}", logAbnormal.getException().getClass().toString())
-                .replace("{message}", logAbnormal.getException().getMessage());
+                .replace("{message}", logAbnormal.getException().getMessage() == null ? "null" : logAbnormal.getException().getMessage());
 
         joiner.add(logProperties.logAbnormalArgs).add(content);
 
